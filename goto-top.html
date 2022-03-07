@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 5000px;
+            background: linear-gradient(#00ff04, red, #09aad3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .hidden {
+            opacity: 0%;
+        }
+
+        .progress-bar {
+            height: 0.2rem;
+            background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 2rem;
+            bottom: 2rem;
+            border-radius: 100%;
+            background: #7ac9f9;
+            padding: 0.5rem;
+            border: none;
+            cursor: pointer;
+            opacity: 100%;
+            transition: opacity 0.5s;
+        }
+
+        .back-to-top-icon {
+            width: 1rem;
+            height: 1rem;
+            color: black;
+        }
+
+        /* below two are for diff styles*/
+        .back-to-top {
+            position: fixed;
+            right: 2rem;
+            bottom: 2rem;
+            border-radius: 100%;
+            background: #141c38;
+            padding: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-to-top-icon {
+            width: 1rem;
+            height: 1rem;
+            color: #7ac9f9;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar" />
+    <button class="back-to-top hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="back-to-top-icon" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+        </svg>
+    </button>
+</body>
+<script>
+    const showOnPx = 100;
+    const backToTopButton = document.querySelector(".back-to-top");
+
+    const scrollContainer = () => {
+        return document.documentElement || document.body;
+    };
+
+    document.addEventListener("scroll", () => {
+        if (scrollContainer().scrollTop > showOnPx) {
+            backToTopButton.classList.remove("hidden");
+        } else {
+            backToTopButton.classList.add("hidden");
+        }
+    })
+
+    const _goToTop = () => {
+        document.body.scrollIntoView();
+    };
+
+    const goToTop = () => {
+        document.body.scrollIntoView({
+            behavior: "smooth",
+        });
+    };
+    backToTopButton.addEventListener("click", goToTop);
+    //=================
+    const pageProgressBar = document.querySelector(".progress-bar")
+    document.addEventListener("scroll", () => {
+        const scrolledPercentage =
+            (scrollContainer().scrollTop /
+                (scrollContainer().scrollHeight - scrollContainer().clientHeight)) *
+            100;
+
+        pageProgressBar.style.width = `${scrolledPercentage}%`
+
+        if (scrollContainer().scrollTop > showOnPx) {
+            backToTopButton.classList.remove("hidden");
+        } else {
+            backToTopButton.classList.add("hidden");
+        }
+    });
+</script>
+
+</html>
